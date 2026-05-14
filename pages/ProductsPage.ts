@@ -12,6 +12,10 @@ export class ProductsPage extends BasePage {
   readonly continueShoppingBtn: Locator;
   readonly viewProductBtn: Locator;
   readonly viewCartLink : Locator;
+  readonly productsTitle: Locator;
+  readonly addedModalTitle: Locator;
+  readonly addedSuccessMsg: Locator;
+  
 
   constructor(page: Page) {
     super(page);
@@ -26,6 +30,9 @@ export class ProductsPage extends BasePage {
     );
     this.viewProductBtn = page.locator('a:has-text("View Product")');
     this.viewCartLink = page.locator('#cartModal a:has-text("View Cart")');
+    this.productsTitle = page.locator('.features_items h2.title');
+    this.addedModalTitle = page.locator('#cartModal .modal-title');
+    this.addedSuccessMsg = page.locator('#cartModal .modal-body p').first();
 }
   async goto(): Promise<void> {
     await this.navigateTo('/products');
@@ -56,4 +63,10 @@ export class ProductsPage extends BasePage {
     await product.hover();
     await product.locator('a:has-text("View Product")').click();
   }
+  async expectAddedModalVisible(): Promise<void> {
+  await expect(this.addedModalTitle).toHaveText(/added!/i);
+  await expect(this.addedSuccessMsg).toHaveText(/your product has been added to cart/i);
+  await expect(this.continueShoppingBtn).toBeVisible();
+  await expect(this.viewCartLink).toBeVisible();
+}
 }

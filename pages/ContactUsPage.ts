@@ -8,6 +8,7 @@ export class ContactUsPage extends BasePage {
   readonly messageInput: Locator;
   readonly submitBtn: Locator;
   readonly successMsg: Locator;
+  readonly contactUsTitle: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -17,6 +18,7 @@ export class ContactUsPage extends BasePage {
     this.messageInput = page.locator('[data-qa="message"]');
     this.submitBtn = page.locator('[data-qa="submit-button"]');
     this.successMsg = page.locator('.contact-form .alert-success');
+    this.contactUsTitle = page.locator('h2.title.text-center').filter({ hasText: 'Contact Us' });
   }
   async goto() {
     await this.navigateTo('/contact_us');
