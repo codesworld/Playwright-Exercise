@@ -12,7 +12,6 @@ export abstract class BasePage {
    
   constructor(page: Page) {
     this.page = page;
-
   }
 
   async goTo(link: NavLink): Promise<void> {
@@ -20,6 +19,7 @@ export abstract class BasePage {
   }
   async navigateTo(path = '/'): Promise<void> {
     await this.page.goto(path);
+    await this.page.waitForLoadState('domcontentloaded');
   }
   async getTitle(): Promise<string> {
     return this.page.title();

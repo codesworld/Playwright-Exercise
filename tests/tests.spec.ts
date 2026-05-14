@@ -17,5 +17,4 @@ test.describe('Automation Exercise Tests', () => {
          expect(name.toLowerCase()).toContain('dress');
         }
     });
-
 });
