@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-const BASE_URL = 'https://automationexercise.com';
+const BASE_URL = process.env.BASE_URL ||'https://automationexercise.com';
 
 
 /**
