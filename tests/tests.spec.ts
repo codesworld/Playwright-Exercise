@@ -1,5 +1,6 @@
 import { test } from '../fixtures/pages.fixture';
 import { expect } from '@playwright/test';
+import contactData from '../test-data/contact-form.json';
 
 test.describe('Automation Exercise Tests', () => {
 
@@ -18,8 +19,8 @@ test.describe('Automation Exercise Tests', () => {
          expect(name.toLowerCase()).toContain('dress');
         }
     });
-    
-     test('Add two products to the cart', async ({ productsPage, cartPage }) => {
+
+    test('Add two products to the cart', async ({ productsPage, cartPage }) => {
         await productsPage.goto();
         await productsPage.addProductToCartByIndex(0);
         await productsPage.continueShoppingBtn.click();
@@ -29,4 +30,13 @@ test.describe('Automation Exercise Tests', () => {
         const count = await cartPage.getCartItemCount();
         expect(count).toBe(2);
     });
+
+    test('Submit contact form successfully', async ({ contactUsPage }) => {
+        const { name, email, subject, message } = contactData.Contact;
+
+        await contactUsPage.goto();
+        await contactUsPage.submitForm(name, email, subject, message);
+        await expect(contactUsPage.successMsg).toBeVisible();
+        await expect(contactUsPage.successMsg).toContainText('Success!');
+    })
 });
