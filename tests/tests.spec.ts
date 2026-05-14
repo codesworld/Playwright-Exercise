@@ -2,6 +2,7 @@ import { test } from '../fixtures/pages.fixture';
 import { expect } from '@playwright/test';
 
 test.describe('Automation Exercise Tests', () => {
+
     test('Assert search results should contain "Dress" keyword', async ({ productsPage }) => {
         await productsPage.goto();
         await productsPage.searchProduct('Dress');
@@ -16,5 +17,16 @@ test.describe('Automation Exercise Tests', () => {
         for (const name of names) {
          expect(name.toLowerCase()).toContain('dress');
         }
+    });
+    
+     test('Add two products to the cart', async ({ productsPage, cartPage }) => {
+        await productsPage.goto();
+        await productsPage.addProductToCartByIndex(0);
+        await productsPage.continueShoppingBtn.click();
+        await productsPage.addProductToCartByIndex(1);
+        await productsPage.viewCartLink.click();
+
+        const count = await cartPage.getCartItemCount();
+        expect(count).toBe(2);
     });
 });
