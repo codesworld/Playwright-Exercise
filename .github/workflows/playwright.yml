@@ -15,6 +15,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.60.0-jammy
 
     env:
+      HOME: /root
       BASE_URL: ${{ secrets.BASE_URL }}
       USER_EMAIL: ${{ secrets.USER_EMAIL }}
       USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
