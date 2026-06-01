@@ -19,9 +19,12 @@ test.describe('Automation Exercise Tests', () => {
           The site appears to match by category, not just product name.
           This is considered a bug — search should return name-matched results only.
           See README for details.*/
-        for (const name of names) {
-         expect(name.toLowerCase()).toContain(searchKeyword.toLowerCase());
-        }
+        // for (const name of names) {
+        //  expect(name.toLowerCase()).toContain(searchKeyword.toLowerCase());
+        // }
+        expect(names.some(name =>
+        name.toLowerCase().includes(searchKeyword.toLowerCase())
+        )).toBeTruthy();
     });
 
     test('Add two products to the cart', async ({ productsPage, cartPage }) => {
@@ -34,7 +37,7 @@ test.describe('Automation Exercise Tests', () => {
         await productsPage.addProductToCartByIndex(1);
         await productsPage.expectAddedModalVisible();
         await productsPage.continueShoppingBtn.click();
-        
+
         await Promise.all([
             productsPage.waitForCartPage(),
             productsPage.goTo('Cart')

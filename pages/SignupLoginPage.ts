@@ -33,6 +33,11 @@ readonly signupErrorMessage =
     await this.loginPasswordInput.fill(password);
     await this.loginBtn.click();
   }
+  async expectLoginFormVisible(): Promise<void> {
+  await expect(this.loginEmailInput).toBeVisible({ timeout: 15000 });
+  await expect(this.loginPasswordInput).toBeVisible();
+  await expect(this.loginBtn).toBeVisible();
+ }
 
   async startSignup(name: string, email: string): Promise<void> {
     await this.signupNameInput.fill(name);

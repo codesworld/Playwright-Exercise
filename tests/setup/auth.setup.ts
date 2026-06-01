@@ -29,6 +29,7 @@ setup('authenticate user and save auth state', async ({ page }) => {
     await consentButtonOnLogin.click();
   }
 
+  await loginPage.expectLoginFormVisible();
   await loginPage.login(email, password);
 
   await expect(page.locator('a[href="/logout"]')).toBeVisible();
