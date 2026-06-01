@@ -15,6 +15,7 @@ export class ProductsPage extends BasePage {
   readonly productsTitle: Locator;
   readonly addedModalTitle: Locator;
   readonly addedSuccessMsg: Locator;
+  readonly cartModal: Locator;
   
 
   constructor(page: Page) {
@@ -25,14 +26,18 @@ export class ProductsPage extends BasePage {
     this.productList = page.locator('.features_items .col-sm-4');
     this.productName = page.locator('.productinfo p');
     this.productPrice = page.locator('.productinfo h2');
-    this.continueShoppingBtn = page.locator(
-      'button:has-text("Continue Shopping")'
-    );
+    this.cartModal = page.locator('#cartModal');
+    this.continueShoppingBtn = this.cartModal.getByRole('button', {
+    name: 'Continue Shopping',
+});
     this.viewProductBtn = page.locator('a:has-text("View Product")');
-    this.viewCartLink = page.locator('#cartModal a:has-text("View Cart")');
+    this.viewCartLink = this.cartModal.getByRole('link', {
+      name: 'View Cart'
+    });
     this.productsTitle = page.locator('.features_items h2.title');
-    this.addedModalTitle = page.locator('#cartModal .modal-title');
-    this.addedSuccessMsg = page.locator('#cartModal .modal-body p').first();
+    this.addedModalTitle = this.cartModal.locator('.modal-title');
+    this.addedSuccessMsg = this.cartModal.locator('.modal-body p')
+    .filter({ hasText: 'Your product has been added to cart.' })
 }
   async goto(): Promise<void> {
     await this.navigateTo('/products');
@@ -53,7 +58,7 @@ export class ProductsPage extends BasePage {
   }
  async addProductToCartByIndex(index: number): Promise<void> {
     const count = await this.productList.count();
-  if (index >= count) throw new Error(`Index ${index} out of bounds. Total products: ${count}`);
+    if (index >= count) throw new Error(`Index ${index} out of bounds. Total products: ${count}`);
     const product = this.productList.nth(index);
     await product.hover();
     await product.locator('.product-overlay .add-to-cart').click();
@@ -64,9 +69,11 @@ export class ProductsPage extends BasePage {
     await product.locator('a:has-text("View Product")').click();
   }
   async expectAddedModalVisible(): Promise<void> {
-  await expect(this.addedModalTitle).toHaveText(/added!/i);
-  await expect(this.addedSuccessMsg).toHaveText(/your product has been added to cart/i);
-  await expect(this.continueShoppingBtn).toBeVisible();
-  await expect(this.viewCartLink).toBeVisible();
-}
+    await expect(this.addedModalTitle).toHaveText(/added!/i);
+    await expect(this.addedSuccessMsg).toBeVisible();
+    await expect(this.viewCartLink).toBeVisible();
+ }
+ async waitForCartPage(): Promise<void> {
+    await this.page.waitForURL('**/view_cart');
+ }
 }

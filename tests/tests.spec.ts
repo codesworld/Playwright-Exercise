@@ -1,5 +1,4 @@
-import { test } from '../fixtures/pages.fixture';
-import { expect } from '@playwright/test';
+import { test,expect} from '../fixtures/pages.fixture';
 import contactData from '../test-data/contact-form.json';
 
 test.describe('Automation Exercise Tests', () => {
@@ -34,7 +33,12 @@ test.describe('Automation Exercise Tests', () => {
         await productsPage.continueShoppingBtn.click();
         await productsPage.addProductToCartByIndex(1);
         await productsPage.expectAddedModalVisible();
-        await productsPage.viewCartLink.click();
+        await productsPage.continueShoppingBtn.click();
+        
+        await Promise.all([
+            productsPage.waitForCartPage(),
+            productsPage.goTo('Cart')
+        ]);
 
         await expect(cartPage.proceedToCheckoutBtn).toBeVisible();
         const count = await cartPage.getCartItemCount();
