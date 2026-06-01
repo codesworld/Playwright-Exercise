@@ -10,6 +10,7 @@ node_modules/
 # Local auth/session state
 auth/*.json
 !auth/.gitkeep
+.env
 
 # Logs
 *.log
