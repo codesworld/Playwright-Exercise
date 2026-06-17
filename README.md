@@ -24,9 +24,11 @@ Target Website: https://automationexercise.com
 ├── pages/                 # Page Object classes
 ├── auth/                  # Storage state structure
 ├── test-data/             # JSON-based test data support
-├── tests/                 # Test files
-├── global-setup.ts        # Cookie consent handling 
+├── tests/                 
+   ├── setup/              # Authentication setup project & Cookie Handling
+   └── ui/ auth.setup.ts   # UI Test
 ├── playwright.config.ts
+├── eslint.config.mjs
 ├── tsconfig.json
 ├── package.json
 ```
@@ -78,64 +80,6 @@ test('Add product to cart', async ({ productsPage, cartPage }) => {
   await productsPage.goto();
 });
 ```
-
----
-
-## Cookie Consent Handling
-
-During headed execution, the website displays a cookie consent popup which may interfere with test execution.
-
-To avoid test interruptions, a `global-setup.ts` file together with Playwright `storageState` was implemented.
-
-This allows cookie/session state to be generated before tests begin.
-Generated storage state files are intentionally excluded from version control.
-
----
-
-## Test Data Handling
-
-The framework structure supports externalised JSON-based test data for future scalability and data-driven testing.
-
-A lightweight JSON example was added for the contact form test.
-
-For Test 2 (Add to Cart), dedicated product datasets could also have been externalised into JSON test data files. However, due to the relatively small scope of the exercise and because this was not explicitly required in the task, the implementation was intentionally kept simpler and more lightweight.
-
----
-
-# Implemented Tests
-
-## Test 1 — Product Search
-
-- Navigate to the Products page
-- Search for `"Dress"`
-- Verify that search results are displayed
-
-### Search Behaviour Observation
-
-The task requested validation that all visible product names contain the searched keyword.
-
-During implementation, it was observed that the website occasionally returns broader category-based matches rather than strict product-name-only matches.
-
-For example, searching for `"Dress"` may also return products whose visible names do not explicitly contain the word `"Dress"`.
-
-The assertion reflects the original requirement and documents the observed application behaviour as a known finding.
-
----
-
-## Test 2 — Add to Cart
-
-- Add two products to the cart
-- Navigate to the Cart page
-- Verify that the cart contains two items
-
----
-
-## Test 3 — Contact Form Submission
-
-- Navigate to the Contact Us page
-- Fill in all required fields
-- Submit the form
-- Verify that the success message is displayed
 
 ---
 
@@ -224,16 +168,10 @@ AI assistance was used during the exercise for:
 
 Given more time, the following improvements could be added:
 
-- CI/CD integration using GitHub Actions
-- Environment-based configuration management
-- Cross-browser execution strategy improvements
-- Expanded data-driven testing
 - API testing integration
-- Enhanced reporting and logging
-- Retry and flaky test handling improvements
-- Authentication/login workflows
+- Enhanced logging
+- Allure reporting
 - Shared utility layer for reusable actions and helpers
-
 
 # Additional Notes
 

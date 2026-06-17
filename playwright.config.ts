@@ -2,10 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-const BASE_URL = process.env.BASE_URL ||'https://automationexercise.com';
+const BASE_URL = process.env.BASE_URL || 'https://automationexercise.com';
 
 export default defineConfig({
-  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -27,17 +26,13 @@ export default defineConfig({
     },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'],
-        storageState: 'auth/auth-state.json',
-        },
-        dependencies: ['setup'],
+      use: { ...devices['Desktop Chrome'], storageState: 'auth/auth-state.json' },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'],
-        storageState: 'auth/auth-state.json',
-      },
+      use: { ...devices['Desktop Firefox'], storageState: 'auth/auth-state.json' },
       dependencies: ['setup'],
     },
 

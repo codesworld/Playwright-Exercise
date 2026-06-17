@@ -28,7 +28,7 @@ export class ContactUsPage extends BasePage {
     await this.emailInput.fill(email);
     await this.subjectInput.fill(subject);
     await this.messageInput.fill(message);
-    this.page.once('dialog', d => d.accept());
+    this.page.once('dialog', (d) => d.accept());
     await this.submitBtn.click();
   }
 }

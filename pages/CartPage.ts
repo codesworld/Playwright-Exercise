@@ -27,6 +27,6 @@ export class CartPage extends BasePage {
     return this.cartProductNames.allInnerTexts();
   }
   async removeItem(index: number): Promise<void> {
-     await this.removeItemBtn.nth(index).click();
+    await this.removeItemBtn.nth(index).click();
   }
 }

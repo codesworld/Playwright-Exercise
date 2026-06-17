@@ -1,15 +1,15 @@
-import { Page, Locator, expect } from '@playwright/test';
-type NavLink = 'Products' | 'Cart' | 'Login' |'Home';
+import { Page } from '@playwright/test';
+type NavLink = 'Products' | 'Cart' | 'Login' | 'Home';
 
 const NAV_ROUTES: Record<NavLink, string> = {
-  Home:     '/',
+  Home: '/',
   Products: '/products',
-  Cart:     '/view_cart',
-  Login:    '/login',
+  Cart: '/view_cart',
+  Login: '/login',
 };
 export abstract class BasePage {
   protected readonly page: Page;
-   
+
   constructor(page: Page) {
     this.page = page;
   }
