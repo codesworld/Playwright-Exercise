@@ -24,7 +24,7 @@ Target Website: https://automationexercise.com
 ├── pages/                 # Page Object classes
 ├── auth/                  # Storage state structure
 ├── test-data/             # JSON-based test data support
-├── tests/                 
+├── tests/
    ├── setup/              # Authentication setup project & Cookie Handling
    └── ui/ auth.setup.ts   # UI Test
 ├── playwright.config.ts

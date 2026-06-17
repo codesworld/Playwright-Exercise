@@ -14,13 +14,12 @@ test.describe('Automation Exercise Tests', () => {
     const names = await productsPage.getProductNames();
     expect(names.length).toBeGreaterThan(0);
 
-    
     // for (const name of names) {
     //   expect(name.toLowerCase()).toContain(searchKeyword.toLowerCase());
     // }
-    expect(names.some(name =>
-    name.toLowerCase().includes(searchKeyword.toLowerCase())
-    )).toBeTruthy();
+    expect(
+      names.some((name) => name.toLowerCase().includes(searchKeyword.toLowerCase())),
+    ).toBeTruthy();
   });
 
   test('Add two products to the cart', async ({ productsPage, cartPage }) => {
