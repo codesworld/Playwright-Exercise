@@ -1,6 +1,6 @@
 # Playwright Technical Test
 
-This repository contains a Playwright + TypeScript automation framework created as part of the Automation QA Engineer technical assessment.
+This repository contains a Playwright + TypeScript automation framework.
 
 The framework was designed to be clean, maintainable, and easy to extend while still keeping the implementation lightweight for the scope of the exercise.
 
